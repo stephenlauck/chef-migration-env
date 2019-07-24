@@ -14,3 +14,4 @@ run_list 'chef-migration-env::default'
 
 # Specify a custom source for a single cookbook:
 cookbook 'chef-migration-env', path: '.'
+cookbook 'chef-ingredient'

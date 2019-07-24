@@ -11,6 +11,10 @@ driver:
 
 provisioner:
   name: chef_zero
+  client_rb:
+    chef_license: accept
+  attributes:
+    chef_license: accep
 
   ## product_name and product_version specifies a specific Chef product and version to install.
   ## see the Chef documentation for more details: https://docs.chef.io/config_yml_kitchen.html
@@ -25,8 +29,15 @@ platforms:
   - name: centos-7
 
 suites:
-  - name: default
-    verifier:
-      inspec_tests:
-        - test/integration/default
+  - name: chef-server
+    run_list:
+      - recipe[test::chef_server]
+    driver:
+      network:
+        - ['private_network', {ip: '192.168.243.2'}]
+      customize:
+        memory: 2048
+        cpus: 2
     attributes:
+      chef_server:
+        fqdn: 192.168.243.2
